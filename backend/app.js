@@ -38,12 +38,20 @@ const allowedOrigins = [
 
 app.use(cors({ 
   origin: function (origin, callback) {
+    console.log('🌐 CORS Check - Origin:', origin);
+    console.log('🌐 CORS Check - Allowed origins:', allowedOrigins);
+    
     // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      console.log('✅ CORS - No origin, allowing request');
+      return callback(null, true);
+    }
     
     if (allowedOrigins.indexOf(origin) !== -1) {
+      console.log('✅ CORS - Origin allowed');
       callback(null, true);
     } else {
+      console.log('❌ CORS - Origin not allowed');
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -51,6 +59,13 @@ app.use(cors({
 }));
 app.use(cookieParser());
 app.use(express.json());
+
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`📥 ${req.method} ${req.path} - Origin: ${req.get('origin')} - Time: ${new Date().toISOString()}`);
+  next();
+});
+
 // Removed passport initialization
 
 // Health check endpoint
