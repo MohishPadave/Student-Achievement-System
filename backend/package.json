@@ -8,9 +8,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "build": "npm install --production",
-    "railway-build": "npm install --production"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
