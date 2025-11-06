@@ -49,9 +49,13 @@ export const connectDB = async () => {
 };
 ```
 
-### Environment Variable
+### Environment Variables
 ```env
+NODE_ENV=production
+JWT_SECRET=StudentAchievementPortal2024JWTSecretKey
+SESSION_SECRET=StudentAchievementPortal2024SessionSecretKey
 MONGO_URI=mongodb+srv://yroshan504:JiNGcMnJ1TDwedk2@students-achievements-c.ypfecl6.mongodb.net/StudentPortal?retryWrites=true&w=majority&appName=Students-Achievements-Cluster
+FRONTEND_URL=https://student-achievement-system.vercel.app
 ```
 
 ## 🛠️ Available Database Endpoints

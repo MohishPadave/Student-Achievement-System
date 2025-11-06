@@ -26,8 +26,8 @@ This guide will help you deploy the Student Achievements Portal to Vercel (front
 In Railway dashboard, go to Variables tab and add:
 
 ```
-JWT_SECRET=your_strong_jwt_secret_here
-SESSION_SECRET=your_strong_session_secret_here
+JWT_SECRET=StudentAchievementPortal2024JWTSecretKey
+SESSION_SECRET=StudentAchievementPortal2024SessionSecretKey
 PORT=3000
 NODE_ENV=production
 FRONTEND_URL=https://student-achievement-system.vercel.app
