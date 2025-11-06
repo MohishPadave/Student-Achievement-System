@@ -30,7 +30,7 @@ JWT_SECRET=your_strong_jwt_secret_here
 SESSION_SECRET=your_strong_session_secret_here
 PORT=3000
 NODE_ENV=production
-FRONTEND_URL=https://your-vercel-app.vercel.app
+FRONTEND_URL=https://student-achievement-system.vercel.app
 MONGO_URI=your_mongodb_connection_string
 ```
 
@@ -56,7 +56,7 @@ VITE_BACKEND_URL=https://your-railway-app.railway.app
 ```
 
 ### 3. Update Backend CORS
-After getting your Vercel URL (e.g., `https://your-app.vercel.app`):
+After getting your Vercel URL (e.g., `https://student-achievement-system.vercel.app`):
 1. Go back to Railway dashboard
 2. Update the `FRONTEND_URL` environment variable with your Vercel URL
 3. Redeploy the backend
@@ -101,7 +101,7 @@ After getting your Vercel URL (e.g., `https://your-app.vercel.app`):
 ## Environment URLs
 
 After successful deployment, you'll have:
-- **Frontend:** `https://your-app-name.vercel.app`
+- **Frontend:** `https://student-achievement-system.vercel.app`
 - **Backend:** `https://your-app-name.railway.app`
 - **Database:** MongoDB Atlas cluster
 

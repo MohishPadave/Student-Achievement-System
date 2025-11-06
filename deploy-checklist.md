@@ -67,7 +67,7 @@
 - [ ] Check browser console for errors
 
 ## URLs to Save
-- **Frontend (Vercel):** `https://your-app-name.vercel.app`
+- **Frontend (Vercel):** `https://student-achievement-system.vercel.app`
 - **Backend (Railway):** `https://your-app-name.railway.app`
 - **Database:** MongoDB Atlas connection string
 

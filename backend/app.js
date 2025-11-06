@@ -31,6 +31,7 @@ connectDB();
 // Middleware
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  'https://student-achievement-system.vercel.app',
   'http://localhost:5173',
   'http://localhost:5174'
 ];

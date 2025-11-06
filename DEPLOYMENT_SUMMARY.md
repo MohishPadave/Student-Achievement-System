@@ -76,7 +76,7 @@ After deployment, test these endpoints:
 - **Backend Health:** `https://your-app.railway.app/health`
 - **Database Info:** `https://your-app.railway.app/db-info`
 - **Test Accounts:** `https://your-app.railway.app/auth/test-accounts`
-- **Frontend:** `https://your-app.vercel.app`
+- **Frontend:** `https://student-achievement-system.vercel.app`
 
 ## 🔒 Security Notes
 - JWT tokens expire in 1 hour
