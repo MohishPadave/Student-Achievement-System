@@ -1,0 +1,85 @@
+import { create } from "zustand";
+import toast from "react-hot-toast";
+import axiosInstance from "../services/axiosInstance";
+
+export const useAuthStore = create((set, get) => ({
+  user: null,
+  loading: true,
+  token: localStorage.getItem('jwt') || null,
+
+  login: async (email, password) => {
+    try {
+      const { data } = await axiosInstance.post('auth/login', { email, password });
+      
+      if (data.success) {
+        get().setToken(data.token);
+        set({ user: data.user });
+        toast.success('Login successful!');
+        return { success: true };
+      }
+    } catch (error) {
+      const message = error.response?.data?.error || 'Login failed';
+      toast.error(message);
+      return { success: false, error: message };
+    }
+  },
+
+  getTestAccounts: async () => {
+    try {
+      const { data } = await axiosInstance.get('auth/test-accounts');
+      return data.accounts;
+    } catch (error) {
+      console.error('Failed to fetch test accounts:', error);
+      return [];
+    }
+  },
+
+  setToken: (token) => {
+    localStorage.setItem('jwt', token);
+    set({ token });
+    // Set axios default header
+    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  },
+
+  checkAuth: async () => {
+    set({ loading: true });
+    const token = localStorage.getItem('jwt');
+    
+    if (!token) {
+      set({ user: null, loading: false });
+      return;
+    }
+
+    try {
+      // Set authorization header
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const { data } = await axiosInstance.get('auth/profile');
+      set({ user: data.user });
+    } catch {
+      localStorage.removeItem('jwt');
+      set({ user: null, token: null });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  logout: async () => {
+    try {
+      await axiosInstance.get('auth/logout');
+      localStorage.removeItem('jwt');
+      delete axiosInstance.defaults.headers.common['Authorization'];
+      set({ user: null, token: null });
+      toast.success('Logged out successfully');
+      // Redirect to login page
+      window.location.href = '/login';
+    } catch (err) {
+      console.error('Logout failed:', err);
+      toast.error('Logout failed');
+      // Even if API call fails, clear local state
+      localStorage.removeItem('jwt');
+      delete axiosInstance.defaults.headers.common['Authorization'];
+      set({ user: null, token: null });
+      window.location.href = '/login';
+    }
+  },
+}));
