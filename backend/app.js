@@ -59,14 +59,28 @@ app.use(cors({
 }));
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Request logging middleware
 app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.path} - Origin: ${req.get('origin')} - Time: ${new Date().toISOString()}`);
+  console.log(`📦 Body:`, req.body);
+  console.log(`📋 Content-Type:`, req.get('content-type'));
   next();
 });
 
 // Removed passport initialization
+
+// Test POST endpoint
+app.post('/test-post', (req, res) => {
+  console.log('🧪 Test POST endpoint hit');
+  console.log('📦 Body:', req.body);
+  res.json({ 
+    message: 'POST request successful',
+    body: req.body,
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
