@@ -180,8 +180,35 @@ app.use('/api/faculty',filterRoutes);
 
 // Server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`Frontend URL: ${process.env.FRONTEND_URL}`);
+
+console.log('🚀 Starting server...');
+console.log('📊 Environment variables check:');
+console.log('  - PORT:', PORT);
+console.log('  - NODE_ENV:', process.env.NODE_ENV);
+console.log('  - FRONTEND_URL:', process.env.FRONTEND_URL);
+console.log('  - JWT_SECRET exists:', !!process.env.JWT_SECRET);
+console.log('  - MONGO_URI exists:', !!process.env.MONGO_URI);
+
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL}`);
+  console.log(`🎯 Server is ready to accept connections`);
+});
+
+server.on('error', (error) => {
+  console.error('💥 Server error:', error);
+  if (error.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use`);
+  }
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('💥 Uncaught Exception:', error);
+  process.exit(1);
 });

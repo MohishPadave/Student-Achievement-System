@@ -13,11 +13,10 @@ RUN npm install --only=production
 # Copy application code
 COPY . .
 
-# Expose port
+# Expose port (Railway will override with its own PORT)
 EXPOSE 3000
 
-# Health check (uses PORT environment variable)
-ENV PORT=3000
+# Health check (uses PORT environment variable from Railway)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "const port = process.env.PORT || 3000; require('http').get('http://localhost:' + port + '/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
