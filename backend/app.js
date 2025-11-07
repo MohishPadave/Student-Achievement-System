@@ -26,7 +26,17 @@ import filterRoutes from './routes/filterRoutes.js'
 dotenv.config();
 
 const app = express();
-connectDB();
+
+// Connect to database before starting server
+async function startServer() {
+  try {
+    await connectDB();
+    console.log('✅ Database connected successfully');
+  } catch (error) {
+    console.error('❌ Database connection failed:', error);
+    process.exit(1);
+  }
+}
 
 // Middleware
 const allowedOrigins = [
@@ -192,42 +202,47 @@ app.use('/student',EntrepreneurshipRoutes);
 app.use('/student',OtherAchievementsRoutes);
 app.use('/api/faculty',filterRoutes);
 
-// Server
-const PORT = process.env.PORT || 3000;
+// Start server after database connection
+startServer().then(() => {
+  const PORT = process.env.PORT || 3000;
 
-console.log('🚀 Starting server...');
-console.log('📊 Environment variables check:');
-console.log('  - PORT:', PORT);
-console.log('  - NODE_ENV:', process.env.NODE_ENV);
-console.log('  - FRONTEND_URL:', process.env.FRONTEND_URL);
-console.log('  - JWT_SECRET exists:', !!process.env.JWT_SECRET);
-console.log('  - MONGO_URI exists:', !!process.env.MONGO_URI);
+  console.log('🚀 Starting server...');
+  console.log('📊 Environment variables check:');
+  console.log('  - PORT:', PORT);
+  console.log('  - NODE_ENV:', process.env.NODE_ENV);
+  console.log('  - FRONTEND_URL:', process.env.FRONTEND_URL);
+  console.log('  - JWT_SECRET exists:', !!process.env.JWT_SECRET);
+  console.log('  - MONGO_URI exists:', !!process.env.MONGO_URI);
 
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL}`);
-  console.log(`🎯 Server is ready to accept connections`);
-  console.log(`📡 Listening on 0.0.0.0:${PORT}`);
-});
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL}`);
+    console.log(`🎯 Server is ready to accept connections`);
+    console.log(`📡 Listening on 0.0.0.0:${PORT}`);
+  });
 
-// Keep the process alive
-server.keepAliveTimeout = 65000;
-server.headersTimeout = 66000;
+  // Keep the process alive
+  server.keepAliveTimeout = 65000;
+  server.headersTimeout = 66000;
 
-server.on('error', (error) => {
-  console.error('💥 Server error:', error);
-  if (error.code === 'EADDRINUSE') {
-    console.error(`❌ Port ${PORT} is already in use`);
-  }
-  process.exit(1);
-});
+  server.on('error', (error) => {
+    console.error('💥 Server error:', error);
+    if (error.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} is already in use`);
+    }
+    process.exit(1);
+  });
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
-});
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
+  });
 
-process.on('uncaughtException', (error) => {
-  console.error('💥 Uncaught Exception:', error);
+  process.on('uncaughtException', (error) => {
+    console.error('💥 Uncaught Exception:', error);
+    process.exit(1);
+  });
+}).catch((error) => {
+  console.error('❌ Failed to start server:', error);
   process.exit(1);
 });
