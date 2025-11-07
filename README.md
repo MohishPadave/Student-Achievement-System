@@ -104,12 +104,7 @@ A comprehensive web application for managing and showcasing student achievements
    # Update .env with your backend URL
    npm run dev
    ```
-
-4. **Access the Application**
-   - Frontend: http://localhost:5173 or http://localhost:5174
-   - Backend: http://localhost:3000
-
-## 📊 API Endpoints
+## � API Endpoints
 
 ### Authentication
 - `POST /auth/login` - User login
