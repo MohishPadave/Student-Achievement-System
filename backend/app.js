@@ -71,6 +71,20 @@ app.use((req, res, next) => {
 
 // Removed passport initialization
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Student Achievement Portal API',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      auth: '/auth/*',
+      testAccounts: '/auth/test-accounts'
+    }
+  });
+});
+
 // Test POST endpoint
 app.post('/test-post', (req, res) => {
   console.log('🧪 Test POST endpoint hit');
@@ -194,7 +208,12 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL}`);
   console.log(`🎯 Server is ready to accept connections`);
+  console.log(`📡 Listening on 0.0.0.0:${PORT}`);
 });
+
+// Keep the process alive
+server.keepAliveTimeout = 65000;
+server.headersTimeout = 66000;
 
 server.on('error', (error) => {
   console.error('💥 Server error:', error);
