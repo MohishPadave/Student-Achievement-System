@@ -202,47 +202,26 @@ app.use('/student',EntrepreneurshipRoutes);
 app.use('/student',OtherAchievementsRoutes);
 app.use('/api/faculty',filterRoutes);
 
-// Start server after database connection
-startServer().then(() => {
+// Initialize database connection
+startServer().catch((error) => {
+  console.error('❌ Failed to initialize:', error);
+});
+
+// For local development
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
   const PORT = process.env.PORT || 3000;
-
-  console.log('🚀 Starting server...');
-  console.log('📊 Environment variables check:');
-  console.log('  - PORT:', PORT);
-  console.log('  - NODE_ENV:', process.env.NODE_ENV);
-  console.log('  - FRONTEND_URL:', process.env.FRONTEND_URL);
-  console.log('  - JWT_SECRET exists:', !!process.env.JWT_SECRET);
-  console.log('  - MONGO_URI exists:', !!process.env.MONGO_URI);
-
+  
+  console.log('🚀 Starting local server...');
   const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅ Server running on port ${PORT}`);
     console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL}`);
-    console.log(`🎯 Server is ready to accept connections`);
-    console.log(`📡 Listening on 0.0.0.0:${PORT}`);
   });
-
-  // Keep the process alive
-  server.keepAliveTimeout = 65000;
-  server.headersTimeout = 66000;
 
   server.on('error', (error) => {
     console.error('💥 Server error:', error);
-    if (error.code === 'EADDRINUSE') {
-      console.error(`❌ Port ${PORT} is already in use`);
-    }
     process.exit(1);
   });
+}
 
-  process.on('unhandledRejection', (reason, promise) => {
-    console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
-  });
-
-  process.on('uncaughtException', (error) => {
-    console.error('💥 Uncaught Exception:', error);
-    process.exit(1);
-  });
-}).catch((error) => {
-  console.error('❌ Failed to start server:', error);
-  process.exit(1);
-});
+// Export for Vercel serverless
+export default app;
