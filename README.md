@@ -1,46 +1,45 @@
-# 🎓 Student Achievement Portal
+#  Student Achievement Portal
 
 A comprehensive web application for managing and showcasing student achievements, built with React.js frontend and Node.js backend.
 
-## 🚀 Live Demo
+## Live Demo
 
-- **Frontend:** [Deploy on Vercel](https://vercel.com)
-- **Backend:** [Deploy on Railway](https://railway.app)
+- **Frontend:** [Deploy on Vercel](https://student-achievement-system.vercel.app/login)
 
-## 📋 Features
+##  Features
 
-### 🔐 Authentication System
+###  Authentication System
 - **Dummy Login System** (for testing and development)
 - **Role-based Access Control** (Admin, Student, Faculty)
 - **JWT Token Authentication**
 - **Protected Routes**
 
-### 👨‍🎓 Student Features
+###  Student Features
 - Personal profile management
 - Achievement tracking across multiple categories:
-  - 🏢 Internships
-  - 📜 Certifications & Courses
-  - 🔬 Technical Activities
-  - 🎨 Non-Technical Activities
-  - 📄 Paper Publications
-  - 🚀 Entrepreneurship Projects
-  - 🤝 Volunteering Experience
-  - 🎯 Workshops
-  - 🏆 Other Achievements
+  -  Internships
+  - Certifications & Courses
+  - Technical Activities
+  -  Non-Technical Activities
+  - Paper Publications
+  - Entrepreneurship Projects
+  - Volunteering Experience
+  - Workshops
+  - Other Achievements
 
-### 👨‍🏫 Faculty Features
+###  Faculty Features
 - View student achievements
 - Filter and search functionality
 - Export capabilities
 - Student progress monitoring
 
-### 👨‍💼 Admin Features
+### Admin Features
 - Bulk data upload via Excel
 - User management
 - System analytics
 - Contact form management
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React.js** - UI Framework
@@ -73,7 +72,7 @@ A comprehensive web application for managing and showcasing student achievements
 | **Student** | `student@test.com` | `student123` |
 | **Faculty** | `faculty@test.com` | `faculty123` |
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js (v18.0.0 or higher)
@@ -109,26 +108,6 @@ A comprehensive web application for managing and showcasing student achievements
 4. **Access the Application**
    - Frontend: http://localhost:5173 or http://localhost:5174
    - Backend: http://localhost:3000
-
-## 🌐 Deployment
-
-### Deploy to Vercel (Frontend)
-1. Connect your GitHub repository to Vercel
-2. Set root directory to `frontend`
-3. Add environment variable: `VITE_BACKEND_URL`
-4. Deploy
-
-### Deploy to Railway (Backend)
-1. Connect your GitHub repository to Railway
-2. Set root directory to `backend`
-3. Add environment variables:
-   - `JWT_SECRET`
-   - `SESSION_SECRET`
-   - `MONGO_URI`
-   - `FRONTEND_URL`
-4. Deploy
-
-📖 **Detailed deployment guide:** [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
 
 ## 📊 API Endpoints
 
@@ -188,38 +167,3 @@ Student-Achievement-System/
 - **Input Validation** on all forms
 - **Protected Routes** on both frontend and backend
 - **Environment Variables** for sensitive data
-
-## 📚 Documentation
-
-- [📋 Deployment Guide](./DEPLOYMENT_GUIDE.md) - Complete deployment instructions
-- [✅ Deploy Checklist](./deploy-checklist.md) - Step-by-step deployment checklist
-- [💾 Database Info](./DATABASE_INFO.md) - Database schema and information
-- [🔑 Login Credentials](./DUMMY_LOGIN_CREDENTIALS.md) - Test account details
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Mohish Padave**
-- GitHub: [@MohishPadave](https://github.com/MohishPadave)
-- Email: mohishpadave@gmail.com
-
-## 🙏 Acknowledgments
-
-- VES Institute of Technology for the project inspiration
-- MongoDB Atlas for database hosting
-- Vercel and Railway for deployment platforms
-
----
-
-⭐ **Star this repository if you found it helpful!**
