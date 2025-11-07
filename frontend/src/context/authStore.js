@@ -8,17 +8,34 @@ export const useAuthStore = create((set, get) => ({
   token: localStorage.getItem('jwt') || null,
 
   login: async (email, password) => {
+    console.log('🔐 Login attempt:', { email, password: '***' });
+    console.log('🌐 Backend URL:', axiosInstance.defaults.baseURL);
+    
     try {
+      console.log('📤 Sending login request...');
       const { data } = await axiosInstance.post('auth/login', { email, password });
+      console.log('📥 Login response:', data);
       
       if (data.success) {
+        console.log('✅ Login successful');
         get().setToken(data.token);
         set({ user: data.user });
         toast.success('Login successful!');
         return { success: true };
+      } else {
+        console.log('❌ Login failed - success: false');
+        toast.error('Login failed');
+        return { success: false, error: 'Login failed' };
       }
     } catch (error) {
-      const message = error.response?.data?.error || 'Login failed';
+      console.error('💥 Login error:', error);
+      console.error('📊 Error response:', error.response);
+      console.error('📝 Error data:', error.response?.data);
+      console.error('🔢 Error status:', error.response?.status);
+      console.error('🌐 Error config:', error.config);
+      
+      const message = error.response?.data?.error || error.message || 'Login failed';
+      console.error('❌ Final error message:', message);
       toast.error(message);
       return { success: false, error: message };
     }
